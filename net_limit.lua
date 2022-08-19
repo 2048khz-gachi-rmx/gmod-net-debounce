@@ -17,7 +17,7 @@ ndb.PunishmentCooldown = 1		-- can only punish once every X seconds				(useful t
 
 ndb.ProcessingLimit = 200 		-- if processing time of a net message takes more than this many ms.			(higher = heavier lag required to punish)
 ndb.ProcessingFrame = 2 		-- in this many seconds, do punish 												(lower = more consistent lag required to punish)
-ndb.ProcessingThreshold = 5		-- punishment will happen if they send nets taking more than % of this time 	(higher = more tolerance for random unintentional lag)
+ndb.ProcessingThreshold = 50	-- punishment will happen if they send nets taking more than this many ms. 		(higher = more tolerance for random unintentional lag)
 ndb.ViolatedIgnoreDuration = 3 	-- if processing time is exceeded, nets from this player will be ignored for this many seconds
 
 ndb.AllowNetsPerSecond = 5		-- every second a player is allowed to send this many nets 						(higher = more spam per second is required to punish)
@@ -191,7 +191,7 @@ function ndb.NetProcessed(ply, time, ok)
 	dat.recvAmt = dat.recvAmt + toIncr
 
 	-- then do the check
-	if time > ndb.ProcessingThreshold / 100 then
+	if time > ndb.ProcessingThreshold / 1000 then
 		dat.toBanFrom[ndb.CurrentNet] = true -- if the net was fairly expensive, in the event they violate we ban them from that net
 
 		if dat.procTime > ndb.ProcessingLimit / 1000 then
