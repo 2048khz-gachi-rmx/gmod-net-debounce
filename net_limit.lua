@@ -60,7 +60,6 @@ local function doLog(fmt, ...)
 	MsgC(logCol, "[NetDebounce] ", color_white, fmt:format(...), "\n")
 end
 
--- `netName` will be nil if there are other addons detouring net.Incoming
 ndb.Punishments = {
 	log = function(ply, reason, netName)
 		doLog("Player %s (%s) %s (Net name: '%s')", ply:Nick(), ply:SteamID(),
